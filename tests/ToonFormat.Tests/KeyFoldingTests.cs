@@ -6,6 +6,15 @@ namespace ToonFormat.Tests;
 // used to validate current key folding functionality aligns with spec
 public class KeyFoldingTests
 {
+    /// <summary>
+    /// Normalizes line endings to LF for cross-platform test compatibility.
+    /// This ensures tests pass regardless of how Git checks out line endings.
+    /// </summary>
+    private static string NormalizeLineEndings(string value)
+    {
+        return value.Replace("\r\n", "\n").Replace("\r", "\n");
+    }
+
     [Fact]
     [Trait("Description", "encodes folded chain to primitive (safe mode)")]
     public void EncodesFoldedChainToPrimitiveSafeMode()
@@ -43,7 +52,7 @@ a.b.c: 1
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -87,7 +96,7 @@ data.meta.items[2]: x,y
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -143,7 +152,7 @@ a.b.items[2]{id,name}:
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -191,7 +200,7 @@ a.b:
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -236,7 +245,7 @@ a.b.c.d: 1
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -279,7 +288,7 @@ a:
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -322,7 +331,7 @@ a:
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -364,7 +373,7 @@ a:
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -408,7 +417,7 @@ a.b.c:
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -447,7 +456,7 @@ a.b[2]: 1,2
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 
     [Fact]
@@ -496,6 +505,6 @@ short.path: 3
 
         var result = ToonEncoder.Encode(input, options);
 
-        Assert.Equal(expected, result);
+        Assert.Equal(NormalizeLineEndings(expected), NormalizeLineEndings(result));
     }
 }
